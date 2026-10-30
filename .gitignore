@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.dwg
+*.dxf
+*.bak
+outputs/
+work/

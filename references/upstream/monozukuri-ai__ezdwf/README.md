@@ -1,0 +1,143 @@
+# ezdwf
+
+`ezdwf` is an experimental, read-only Python library for parsing 2D Autodesk
+DWF and DWFx files. Its parser is written in Rust and exposes drawings through
+an ezdxf-style Python API.
+
+The library reads source formats directly without converting them to DXF. It
+provides both a normalized paper-space model for application code and access to
+the underlying DWF, W2D, OPC, and XPS records when lower-level data is needed.
+
+## Installation
+
+Python 3.10 or later is required.
+From PYPI.
+
+```console
+pip install ezdwf
+```
+
+From a source checkout, run:
+
+```console
+python -m pip install .
+```
+
+Building from source also requires a Rust toolchain.
+
+Install the optional Matplotlib renderer with:
+
+```console
+python -m pip install "ezdwf[plot]"
+```
+
+## Quick start
+
+```python
+import ezdwf
+
+drawing = ezdwf.read("drawing.dwf")
+sheet = drawing.modelspace()
+
+print(drawing.stats())
+
+for entity in sheet.query('LINE POLYLINE[layer=="Walls", visible==true]'):
+    print(entity.dxftype(), entity.layer, entity.points)
+
+sheet.save_svg("drawing.svg")
+```
+
+Matplotlib can be used for interactive inspection or raster/PDF output:
+
+```python
+figure, axes = ezdwf.plot(drawing, include_markup=True)
+figure.savefig("drawing.png", dpi=150, bbox_inches="tight")
+
+# Or render and close the figure in one call.
+ezdwf.save_plot(drawing, "drawing.png", dpi=150, include_markup=True)
+```
+
+Multi-sheet drawings can be accessed by index, page name, or title:
+
+```python
+first_sheet = drawing.sheet(0)
+named_sheet = drawing.sheet("Floor Plan")
+```
+
+## Command line
+
+```console
+ezdwf inspect drawing.dwf
+ezdwf inspect drawing.dwf --json
+ezdwf render drawing.dwf drawing.svg --sheet 0
+ezdwf plot drawing.dwf drawing.png --sheet 0 --dpi 150
+```
+
+Run `ezdwf --help` or `ezdwf <command> --help` for all options.
+
+## Supported input
+
+- Legacy 2D DWF/WHIP streams (`(DWF V00.25)`, `V00.30`, `V00.34`, `V00.36`, `V00.42`,
+  `V00.50`, `V00.55`)
+- Bare `(W2D V06.xx)` graphics streams that are not wrapped in a DWF 6 package
+  (for example a `.w2d` resource saved with a `.dwf` extension); they are read
+  like a legacy single-stream file and report `kind == "w2d_stream"`
+- DWF 6 packages containing ePlot/W2D resources
+- DWFx packages containing OPC/OpenXPS fixed pages
+
+When a W2D resource contains a record the decoder cannot read (an unknown
+opcode or operands that do not parse), the entities decoded before it are kept,
+the rest of that resource is skipped, and a `W2D_STREAM_TRUNCATED` warning is
+added to `drawing.diagnostics` (details: `opcode`, `consumed_bytes`,
+`decoded_bytes`, `consumed_percent`, `entities_kept`, `error`). A resource that
+yields nothing drawable before the failure still raises the original error,
+and resource limits always fail closed.
+
+Common 2D geometry, layers, colors, line and fill styles, text, raster images,
+clips, opacity masks, gradients, Canvas groups, and VisualBrush resources are
+represented in the normalized model. DWFx package fonts can be decoded into
+positioned glyph outlines. Drawings can be queried by entity type and style and
+rendered to deterministic SVG without additional runtime dependencies.
+
+For package inspection without normalization, use the lower-level API:
+
+```python
+package = ezdwf.inspect_package("drawing.dwf")
+dwfx = ezdwf.inspect_dwfx("drawing.dwfx")
+
+# Glyph outlines are opt-in for structure-only DWFx inspection.
+dwfx_with_outlines = ezdwf.inspect_dwfx(
+    "drawing.dwfx",
+    resolve_glyph_outlines=True,
+)
+```
+
+## Coordinates
+
+High-level entities use the sheet's paper units in a bottom-left, Y-up
+coordinate system. DWFx pages use device-independent pixels (DIP), where
+96 DIP equals one inch. Raw objects retain their source coordinate systems and
+transforms.
+
+See [the object model documentation](https://github.com/monozukuri-ai/ezdwf/blob/5df029d553f3fb219c1963005d844f0ad4c574de/docs/object-model.ja.md) for details.
+
+## Limitations
+
+- The API is read-only and is still pre-alpha.
+- Support is focused on 2D ePlot content; 3D DWF content is outside the current
+  scope.
+- SVG output is a reference preview. Some color-profile brushes, JPEG XR image
+  details, and format-specific embedded fonts cannot yet be rendered exactly.
+- Matplotlib output uses representative colors for complex XPS gradient,
+  ImageBrush, and VisualBrush paints and applies the first path in a clip chain.
+- Unsupported or ambiguous source semantics are reported through diagnostics
+  instead of being silently approximated.
+- `ParseLimits.max_w2d_entities` (default 500,000 per W2D resource) is a soft
+  limit: the drawables decoded before it are kept, the rest of that resource is
+  skipped, and a `W2D_ENTITY_LIMIT_TRUNCATED` warning is reported. Raise it for
+  very large plots when enough memory is available; the other limits still fail
+  closed.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

@@ -1,0 +1,6 @@
+interface:
+  display_name: "DWG 图框提取与替换"
+  short_description: "提取旧框字段，换入用户提供的新图框，支持散线图框并校验正文保留"
+  default_prompt: "使用 $dwg-titleblock-replace，按我的字段要求将原 DWG 的旧图框替换为另附的新图框。"
+policy:
+  allow_implicit_invocation: true

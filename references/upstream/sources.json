@@ -1,0 +1,82 @@
+[
+  {
+    "repo": "mozman/ezdxf",
+    "commit": "7b202613e0d689955b8932a22bcbcf68bdd684f0",
+    "license": "MIT",
+    "updated_at": "2026-10-21T14:40:29Z",
+    "files": [
+      {
+        "file": "README.md",
+        "url": "https://raw.githubusercontent.com/mozman/ezdxf/7b202613e0d689955b8932a22bcbcf68bdd684f0/README.md"
+      },
+      {
+        "file": "LICENSE",
+        "url": "https://raw.githubusercontent.com/mozman/ezdxf/7b202613e0d689955b8932a22bcbcf68bdd684f0/LICENSE"
+      },
+      {
+        "file": "docs/source/xref.rst",
+        "url": "https://raw.githubusercontent.com/mozman/ezdxf/7b202613e0d689955b8932a22bcbcf68bdd684f0/docs/source/xref.rst"
+      },
+      {
+        "file": "examples/xref/attach_dxf_dwg_xref.py",
+        "url": "https://raw.githubusercontent.com/mozman/ezdxf/7b202613e0d689955b8932a22bcbcf68bdd684f0/examples/xref/attach_dxf_dwg_xref.py"
+      },
+      {
+        "file": "src/ezdxf/xref.py",
+        "url": "https://raw.githubusercontent.com/mozman/ezdxf/7b202613e0d689955b8932a22bcbcf68bdd684f0/src/ezdxf/xref.py"
+      }
+    ]
+  },
+  {
+    "repo": "monozukuri-ai/ezdwf",
+    "commit": "5df029d553f3fb219c1963005d844f0ad4c574de",
+    "license": "MIT",
+    "updated_at": "2026-10-19T13:15:20Z",
+    "files": [
+      {
+        "file": "README.md",
+        "url": "https://raw.githubusercontent.com/monozukuri-ai/ezdwf/5df029d553f3fb219c1963005d844f0ad4c574de/README.md"
+      },
+      {
+        "file": "LICENSE",
+        "url": "https://raw.githubusercontent.com/monozukuri-ai/ezdwf/5df029d553f3fb219c1963005d844f0ad4c574de/LICENSE"
+      },
+      {
+        "file": "pyproject.toml",
+        "url": "https://raw.githubusercontent.com/monozukuri-ai/ezdwf/5df029d553f3fb219c1963005d844f0ad4c574de/pyproject.toml"
+      }
+    ]
+  },
+  {
+    "repo": "abueno78/dwg-dani",
+    "commit": "ae871b15f5f24756d18dda1bc737dc7100c1ffe4",
+    "license": "MIT",
+    "updated_at": "2026-07-26T14:23:58Z",
+    "files": [
+      {
+        "file": "README.md",
+        "url": "https://raw.githubusercontent.com/abueno78/dwg-dani/ae871b15f5f24756d18dda1bc737dc7100c1ffe4/README.md"
+      },
+      {
+        "file": "LICENSE",
+        "url": "https://raw.githubusercontent.com/abueno78/dwg-dani/ae871b15f5f24756d18dda1bc737dc7100c1ffe4/LICENSE"
+      }
+    ]
+  },
+  {
+    "repo": "MatheusMeM/dwg-interpreter-claude-skill",
+    "commit": "0d14cf739e89e02d4e40e2a9761d4d19111d3c8d",
+    "license": "MIT",
+    "updated_at": "2026-08-07T03:08:10Z",
+    "files": [
+      {
+        "file": "README.md",
+        "url": "https://raw.githubusercontent.com/MatheusMeM/dwg-interpreter-claude-skill/0d14cf739e89e02d4e40e2a9761d4d19111d3c8d/README.md"
+      },
+      {
+        "file": "LICENSE",
+        "url": "https://raw.githubusercontent.com/MatheusMeM/dwg-interpreter-claude-skill/0d14cf739e89e02d4e40e2a9761d4d19111d3c8d/LICENSE"
+      }
+    ]
+  }
+]
