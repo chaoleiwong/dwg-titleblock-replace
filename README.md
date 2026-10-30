@@ -2,6 +2,10 @@
 
 从 DWG/DXF 旧图框提取字段，将用户提供的新模板导入并替换选定图框，保留正文、其他图框与布局。通过固定快照、实体句柄、输入哈希和回读检查控制修改范围，另存结果，不覆盖原件。
 
+## 流程说明
+
+分阶段操作顺序、决策点与交付物见 [`docs/workflow.md`](docs/workflow.md)。完整规则与禁令仍以 [`SKILL.md`](SKILL.md) 为准。
+
 ## 依赖
 
 - Python>=3.11（脚本使用 `hashlib.file_digest`），并安装 ezdxf>=1.4，以所选 Python `$PY` 表示：`"$PY" -m pip install -r requirements.txt`。
