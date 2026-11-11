@@ -1,10 +1,16 @@
-# 通用 DWG 图框提取与替换
+# DWG 图框替换与竣工图交付
 
 从 DWG/DXF 旧图框提取字段，将用户提供的新模板导入并替换选定图框，保留正文、其他图框与布局。通过固定快照、实体句柄、输入哈希和回读检查控制修改范围，另存结果，不覆盖原件。
 
 ## 流程说明
 
 分阶段操作顺序、决策点与交付物见 [`docs/workflow.md`](docs/workflow.md)。完整规则与禁令仍以 [`SKILL.md`](SKILL.md) 为准。
+
+完整竣工图任务见 [竣工图处理与交付](docs/as-built-delivery.md)。变更并图、说明页轮廓文字与正式台账按流程核对。
+
+## 安装
+
+在 Codex 中使用 `$skill-installer` 安装 `chaoleiwong/dwg-titleblock-replace` 仓库根目录，或将仓库克隆到 `~/.codex/skills/dwg-titleblock-replace` 后重启 Codex。通过 `$dwg-titleblock-replace` 调用。已有同名技能时可先在独立目录检查公开版。
 
 ## 依赖
 
@@ -43,3 +49,7 @@ PY=python3
 不会自动恢复轮廓文字语义，不支持任意混合总块、代理对象、外参或行业对象的无损编辑。几何识别只覆盖相应结构，候选必须结合实际图纸复核。字段来源、删除范围和对齐控制点需逐图确认；机械质量门只检查显式配置的对象。建议用原生 CAD 检查字体、打印范围及复杂对象，交付时列出未核实项。
 
 本项目未指定新的许可证；上游材料沿用各自附带的许可证。
+
+[版本记录](CHANGELOG.md) · [第三方材料](THIRD_PARTY_NOTICES.md)
+
+本地可运行 `python3 examples/smoke_dxf.py` 检查合成 DXF 的换框与回读。自动检查可参考 [GitHub Actions 模板](docs/github-actions.example.yml)。
